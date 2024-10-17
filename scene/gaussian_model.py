@@ -42,19 +42,33 @@ class GaussianModel:
 
 
     def __init__(self, sh_degree : int):
+        # 当前的球谐函数阶数，初始值为0
         self.active_sh_degree = 0
-        self.max_sh_degree = sh_degree  
+        # 最大的球谐函数阶数，由传入参数sh_degree确定
+        self.max_sh_degree = sh_degree
+        # 存储3D坐标的张量，初始化为空张量
         self._xyz = torch.empty(0)
+        # 存储零阶球谐函数（DC分量）的特征，初始化为空张量
         self._features_dc = torch.empty(0)
+        # 存储其余阶的球谐函数特征（非DC分量），初始化为空张量
         self._features_rest = torch.empty(0)
+        # 用于存储缩放操作的张量，初始化为空张量
         self._scaling = torch.empty(0)
+        # 用于存储旋转操作的张量，初始化为空张量
         self._rotation = torch.empty(0)
+        # 用于存储不透明度值的张量，初始化为空张量
         self._opacity = torch.empty(0)
+        # 存储2D最大半径值，初始化为空张量
         self.max_radii2D = torch.empty(0)
+        # 累积3D坐标梯度的张量，初始化为空张量
         self.xyz_gradient_accum = torch.empty(0)
+        # 分母张量，可能用于某些计算，初始化为空张量
         self.denom = torch.empty(0)
+        # 优化器，初始化为None，稍后会设置为具体的优化器对象
         self.optimizer = None
+        # 稠密化百分比，初始值为0
         self.percent_dense = 0
+        # 与空间相关的学习率缩放系数，初始值为0
         self.spatial_lr_scale = 0
         self.setup_functions()
 
